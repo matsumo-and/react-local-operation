@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  client:
+    image: node:20.11.1
+    build: ./client
+    container_name: client
+    tty: true
+    volumes:
+      - ./client:/client
+    working_dir: "/client"
+    ports:
+      - 8000:3000
+    command: sh -c 'yarn start'
+  service:
+    image: node:20.11.1
+    build: ./service
+    container_name: service
+    tty: true
+    volumes:
+      - ./service:/service
+    working_dir: "/service"
+    ports:
+      - 8080:3000
+    command: sh -c 'npx tsc; npm run dev'
