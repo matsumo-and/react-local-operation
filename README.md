@@ -14,7 +14,7 @@ docker compose build
 docker compose up -d
 ```
 
-## Confirm application
+## How to Confirm application is running
 
 ### client
 open `localhost:8080`
