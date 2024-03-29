@@ -1,7 +1,4 @@
-import Typography, {
-  TypographyOwnProps,
-  TypographyTypeMap,
-} from "@mui/material/Typography";
+import Typography, { TypographyOwnProps } from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 
 /**
