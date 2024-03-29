@@ -2,7 +2,7 @@
 
 ## about
 
-このリポジトリは３つの構成からなります。
+This repository is composed of:
 - client: React.js
 - service: Express.js
 - db: mysql
