@@ -10,10 +10,22 @@ services:
       - ./client:/client
     working_dir: "/client"
     ports:
-      - 8000:3000
+      - 8080:8080
     command: sh -c 'yarn start'
+    networks:
+      - backend
+    depends_on:
+      - service
+
   service:
     image: node:20.11.1
+    environment:
+      - MYSQL_SERVER=db
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=${DB_NAME}
+      - TZ=${TZ}
+      - CHOKIDAR_USEPOLLING=true
     build: ./service
     container_name: service
     tty: true
@@ -21,5 +33,43 @@ services:
       - ./service:/service
     working_dir: "/service"
     ports:
-      - 8080:3000
+      - 3000:3000
     command: sh -c 'npx tsc; npm run dev'
+    networks:
+      backend:
+        ipv4_address: 172.28.1.10
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.3.0
+    environment:
+      - MYSQL_ROOT_HOST=${DB_ROOT_HOST}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - TZ=${TZ}
+    build: ./db
+    container_name: db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db/conf/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./db/init:/docker-entrypoint-initdb.d
+      - ./db/logs:/var/log/mysql
+    networks:
+      backend:
+        ipv4_address: 172.28.1.5
+
+networks:
+  backend:
+    driver: bridge
+    name: app_network
+    ipam:
+      config:
+        - subnet: 172.28.1.0/24
+
+volumes:
+  mysql_data:

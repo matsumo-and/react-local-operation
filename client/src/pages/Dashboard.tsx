@@ -1,6 +1,5 @@
 import "../styles/App.css";
 
-import * as React from "react";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -19,13 +18,14 @@ import Orders from "./Orders";
 import Copyright from "../components/Copyright";
 import { Drawer } from "../features/Drawer";
 import PointCanvas from "../features/PointCanvas";
+import { useState } from "react";
 
 /**
  * Dashboard component
  * @returns
  */
 export default function Dashboard() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
