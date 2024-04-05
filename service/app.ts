@@ -1,16 +1,15 @@
-import { AppDataSource } from "./src/data-source";
-import { User } from "./src/infrastructure/db/entity/User";
-import * as cors from "cors";
-import * as dotenv from "dotenv";
-import * as cookieParser from "cookie-parser";
-import * as express from "express";
-import * as logger from "morgan";
+import cors from "cors";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import express from "express";
+import logger from "morgan";
 
-var login = require("./src/presentation/controller/api/v1/login/index");
-var indexRouter = require("./src/presentation/controller/index");
+//import currentPoseRouter from "./src/presentation/controller/api/v1/ros/CurrentPoseController.js";
+import router from "./src/presentation/controller/api/v1/index.js";
+import currentPoseRouter from "./src/presentation/controller/api/v1/ros/CurrentPoseController.js";
 
 dotenv.config();
-var app = express();
+const app = express();
 
 const corsOptions: cors.CorsOptions = {
   //フロントエンド側のポート番号を設定する
@@ -19,18 +18,24 @@ const corsOptions: cors.CorsOptions = {
   credentials: false,
 };
 
+/**
+ * app settings
+ */
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/", indexRouter);
+/**
+ * router settings
+ */
+app.use("/api/v1/", router);
+app.use("/api/v1/ros/", currentPoseRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req: any, res: any, next: any) {
   res.status(404).json({
-    message: "error",
-    error: "404",
+    message: "uri not found",
   });
 });
 
@@ -43,28 +48,8 @@ app.use(function (err: any, req: any, res: any, next: any) {
   // render the error page
   res.status(err.status || 500);
   res.json({
-    message: "error",
-    error: "404",
+    message: "unexpected error occureded",
   });
 });
 
-AppDataSource.initialize()
-  .then(async () => {
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.name = "test";
-    user.password = "test";
-    await AppDataSource.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
-
-    console.log("Loading users from the database...");
-    const users = await AppDataSource.manager.find(User);
-    console.log("Loaded users: ", users);
-
-    console.log(
-      "Here you can setup and run express / fastify / any other framework."
-    );
-  })
-  .catch((error) => console.log(error));
-
-module.exports = app;
+export default app;

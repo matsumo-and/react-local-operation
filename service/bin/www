@@ -3,10 +3,10 @@
 /**
  * Module dependencies.
  */
-
-var app = require('../dist/app');
-var debug = require('debug')('service:server');
-var http = require('http');
+//var debug = require('debug')('service:server');
+import debug from "debug";
+import app from "../dist/app.js";
+import http from "http";
 
 /**
  * Get port from environment and store in Express.

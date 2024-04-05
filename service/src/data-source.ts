@@ -1,8 +1,10 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { User } from "./infrastructure/db/entity/User";
-import { User1711741565425 } from "./infrastructure/db/migration/1711741565425-User";
-require("dotenv").config();
+import { User } from "./infrastructure/db/entity/User.js";
+import { User1711741565425 } from "./infrastructure/db/migration/1711741565425-User.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const AppDataSource = new DataSource({
   type: "mysql",
