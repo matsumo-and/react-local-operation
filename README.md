@@ -6,6 +6,7 @@ This repository is composed of:
 - client: React.js
 - service: Express.js
 - db: mysql
+- test
 
 ## How to run
 
