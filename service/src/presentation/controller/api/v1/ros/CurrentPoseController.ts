@@ -1,5 +1,5 @@
-import { CurrentPoseUseCase } from "../../../../../domain/usecase/ros/CurrentPoseUseCase.js";
-import { Coordinate } from "../../../../../domain/model/Coordinate.js";
+import CurrentPoseUseCase from "../../../../../domain/usecase/ros/CurrentPoseUseCase.js";
+import Coordinate from "../../../../../domain/model/Coordinate.js";
 import CurrentPoseResponse from "../../../../response/ros/CurrentPoseResponse.js";
 import express from "express";
 

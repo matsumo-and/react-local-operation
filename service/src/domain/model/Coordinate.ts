@@ -35,4 +35,4 @@ class Coordinate {
   }
 }
 
-export { Coordinate };
+export default Coordinate;

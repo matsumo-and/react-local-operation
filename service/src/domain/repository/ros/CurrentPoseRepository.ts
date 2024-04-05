@@ -1,4 +1,4 @@
-import { Coordinate } from "../../model/Coordinate.js";
+import Coordinate from "../../model/Coordinate.js";
 
 /** 現在位置取得リポジトリ */
 class CurrentPoseRepository {
@@ -23,4 +23,4 @@ class CurrentPoseRepository {
   }
 }
 
-export { CurrentPoseRepository };
+export default CurrentPoseRepository;

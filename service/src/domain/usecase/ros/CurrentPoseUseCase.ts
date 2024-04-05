@@ -1,5 +1,5 @@
-import { Coordinate } from "../../model/Coordinate.js";
-import { CurrentPoseRepository } from "../../repository/ros/CurrentPoseRepository.js";
+import Coordinate from "../../model/Coordinate.js";
+import CurrentPoseRepository from "../../repository/ros/CurrentPoseRepository.js";
 
 /** 現在位置取得ユースケース */
 class CurrentPoseUseCase {
@@ -21,4 +21,4 @@ class CurrentPoseUseCase {
   }
 }
 
-export { CurrentPoseUseCase };
+export default CurrentPoseUseCase;

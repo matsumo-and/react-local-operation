@@ -3,7 +3,6 @@
 /**
  * Module dependencies.
  */
-//var debug = require('debug')('service:server');
 import debug from "debug";
 import app from "../dist/app.js";
 import http from "http";
